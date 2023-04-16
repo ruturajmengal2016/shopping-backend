@@ -15,22 +15,20 @@ router
           },
         });
         if (!exist) {
-          res.status(400);
-          throw new Error("You Don't have account");
+          res.status(404);
+          next(Error("Sorry! You haven't account"));
         }
         next();
       } catch (error) {
-        next({ status: res.statusCode, message: error.message });
+        next(error);
       }
     },
     async (req, res, next) => {
       try {
         res.status(200);
-        // res.send("you can log in now")
-        res.redirect("https://shopping-cart-0bte.onrender.com/");
+        res.send("you can redirect to home page")
       } catch (error) {
-        res.status(404);
-        next({ status: req.statusCode, message: error.message });
+        next(error);
       }
     }
   )
@@ -44,29 +42,23 @@ router
         });
         if (exist) {
           res.status(400);
-          throw new Error("This email is already used!");
+          next(Error("This email is already used!"));
         }
         next();
       } catch (error) {
-        next({ status: res.statusCode, message: error.message });
+        next(error);
       }
     },
     async (req, res, next) => {
       try {
         await prisma.users.create({
-          data: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
-          },
+          data: req.body,
         });
         res.status(201);
         res.send("create successfully...");
-        // res.redirect(`${process.env.URL}/login`);
       } catch (error) {
         res.status(400);
-        next({ status: req.statusCode, message: error.message });
+        next(error);
       }
     }
   );
