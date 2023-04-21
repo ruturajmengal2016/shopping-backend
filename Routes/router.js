@@ -9,7 +9,7 @@ router
   .get(
     async (req, res, next) => {
       try {
-        const exist = await prisma.users.findUMany({
+        const exist = await prisma.users.findMany({
           where: {
             email: req.params.email,
           },
