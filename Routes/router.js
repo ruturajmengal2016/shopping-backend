@@ -9,12 +9,12 @@ router
   .get(
     async (req, res, next) => {
       try {
-        const exist = await prisma.users.findUnique({
+        const exist = await prisma.users.findUMany({
           where: {
-            email: req.body.email,
+            email: req.params.email,
           },
         });
-        if (!exist) {
+        if (!exist.length) {
           res.status(404);
           next(Error("Sorry! You haven't account"));
         }
@@ -26,7 +26,7 @@ router
     async (req, res, next) => {
       try {
         res.status(200);
-        res.send("you can redirect to home page")
+        res.end()
       } catch (error) {
         next(error);
       }
@@ -35,12 +35,12 @@ router
   .post(
     async (req, res, next) => {
       try {
-        const exist = await prisma.users.findUnique({
+        const exist = await prisma.users.findMany({
           where: {
             email: req.body.email,
           },
         });
-        if (exist) {
+        if (!exist.length) {
           res.status(400);
           next(Error("This email is already used!"));
         }
