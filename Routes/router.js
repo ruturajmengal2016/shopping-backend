@@ -33,22 +33,22 @@ router
     }
   )
   .post(
-    async (req, res, next) => {
-      try {
-        const exist = await prisma.users.findMany({
-          where: {
-            email: req.body.email,
-          },
-        });
-        if (!exist.length) {
-          res.status(400);
-          next(Error("This email is already used!"));
-        }
-        next();
-      } catch (error) {
-        next(error);
-      }
-    },
+    // async (req, res, next) => {
+    //   try {
+    //     const exist = await prisma.users.findMany({
+    //       where: {
+    //         email: req.body.email,
+    //       },
+    //     });
+    //     if (!exist.length) {
+    //       res.status(400);
+    //       next(Error("This email is already used!"));
+    //     }
+    //     next();
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // },
     async (req, res, next) => {
       try {
         await prisma.users.create({
