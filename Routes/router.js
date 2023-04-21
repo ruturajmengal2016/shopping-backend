@@ -26,7 +26,7 @@ router
     async (req, res, next) => {
       try {
         res.status(200);
-        res.end()
+        res.end();
       } catch (error) {
         next(error);
       }
@@ -52,7 +52,12 @@ router
     async (req, res, next) => {
       try {
         await prisma.users.create({
-          data: req.body,
+          data: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+          },
         });
         res.status(201);
         res.send("create successfully...");
