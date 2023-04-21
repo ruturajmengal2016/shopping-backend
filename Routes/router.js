@@ -40,7 +40,7 @@ router
             email: req.body.email,
           },
         });
-        if (!exist.length) {
+        if (exist) {
           res.status(400);
           next(Error("This email is already used!"));
         }
