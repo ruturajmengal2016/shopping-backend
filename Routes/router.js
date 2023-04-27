@@ -4,25 +4,21 @@ const router = express.Router();
 const { userLogger } = require("../Middleware/middleware");
 const prisma = new PrismaClient();
 
-router.get("/user",async (req, res, next) => {
+router.post(
+  "/user",
+  async (req, res, next) => {
     try {
-      const exist = await prisma.users.findMany({
+      const exist = await prisma.users.findUnique({
         where: {
-          email: req.params.email,
+          email: req.body.email,
         },
       });
-      if (!exist.length) {
+      console.log(exist)
+      if (exist == null) {
         res.status(404);
         next(Error("Sorry! You haven't account"));
       }
-      next();
-    } catch (error) {
-      next(error);
-    }
-  },async (req, res, next) => {
-    try {
-      res.status(200);
-      res.send("get successfully...");
+      res.send("done")
     } catch (error) {
       next(error);
     }
