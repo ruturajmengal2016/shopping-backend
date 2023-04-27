@@ -26,7 +26,7 @@ router
     async (req, res, next) => {
       try {
         res.status(200);
-        res.end();
+        res.send("get successfully...")
       } catch (error) {
         next(error);
       }
