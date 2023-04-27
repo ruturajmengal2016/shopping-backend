@@ -15,6 +15,7 @@ router.post("/register", async (req, res, next) => {
       res.status(200);
       res.send("done");
     }
+    res.status(400)
     throw new Error("Sorry! You haven't account");
   } catch (error) {
     next(error);
