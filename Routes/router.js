@@ -5,7 +5,7 @@ const { userLogger } = require("../Middleware/middleware");
 const prisma = new PrismaClient();
 
 router.post(
-  "/user",
+  "/register",
   async (req, res, next) => {
     try {
       const exist = await prisma.users.findUnique({
