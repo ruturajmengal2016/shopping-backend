@@ -13,8 +13,7 @@ router.post(
           email: req.body.email,
         },
       });
-      console.log(exist)
-      if (exist == null) {
+      if (!exist) {
         res.status(404);
         next(Error("Sorry! You haven't account"));
       }
